@@ -1,0 +1,86 @@
+BCD (0-9):
+
+#include<reg51.h>
+
+void delay() {
+    int i, j;
+    for(i=0; i<1000; i++) {
+        for(j=0; j<100; j++);
+    }
+}
+
+void main() {
+    int z;
+    while(1) {
+        for(z=0; z<10; z++) {  // 0 to 9 for BCD
+            P1 = z;  // Directly output the number (P1 displays binary equivalent)
+            delay();
+        }
+    }
+}
+
+HEX Counter(0-15):
+#include<reg51.h>
+
+void delay() {
+    int i, j;
+    for(i=0; i<1000; i++) {
+        for(j=0; j<100; j++);
+    }
+}
+
+void main() {
+    int x;
+    while(1) {
+        for(x=0; x<16; x++) {  // 0 to 15 for HEX
+            P1 = x;  // Display hex values 0-F
+            delay();
+        }
+    }
+}
+
+Character display:
+#include<reg51.h>
+
+void delay() {
+    int i, j;
+    for(i=0; i<1000; i++) {
+        for(j=0; j<100; j++);
+    }
+}
+
+void main() {
+    // Custom patterns for letters/characters
+    unsigned char patterns[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F}; // 0-9 patterns
+    int z;
+    
+    while(1) {
+        for(z=0; z<10; z++) {
+            P1 = patterns[z];  // Display custom patterns
+            delay();
+        }
+    }
+}
+
+FlASH LED:
+#include<reg51.h>
+
+void delay() {
+    int i, j;
+    for(i=0; i<1000; i++) {
+        for(j=0; j<100; j++);
+    }
+}
+
+void main() {
+    while(1) {
+        P1 = 0xFF;  // All LEDs ON
+        delay();
+        P1 = 0x00;  // All LEDs OFF
+        delay();
+    }
+}
+
+
+
+
