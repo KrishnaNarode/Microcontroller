@@ -1,0 +1,12 @@
+ #include<reg51.h>
+ void main()
+ {
+  int source[4]= {0X10,0X20,0X30,0X40};
+ int destination[4];
+ int i;
+ for(i=0;i<4;i++)
+ {
+ destination[i]=source[i];
+ }
+ while(1);
+ }
