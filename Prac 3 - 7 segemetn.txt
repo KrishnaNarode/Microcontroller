@@ -1,0 +1,47 @@
+seven segement (0-9):
+#include <reg51.h>
+
+void delay() {
+    unsigned int i, j;
+    for(i = 0; i < 1000; i++)
+        for(j = 0; j < 1275; j++);
+}
+
+void main() {
+    unsigned char seg_code[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
+    unsigned int i;
+
+    while(1) {
+        for(i = 0; i < 10; i++) {
+            P2 = seg_code[i];
+            delay();
+        }
+    }
+}
+
+
+seven segment(0-99)
+#include <reg51.h>
+#define seg_port P0
+#define seg_port2 P2
+
+void DELAY(unsigned int msCount) {
+    unsigned int i, j;
+    for(i = 0; i < msCount; i++)
+        for(j = 0; j < 1275; j++);
+}
+
+void main() {
+    unsigned char seg_code[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
+    int i, j;
+
+    while(1) {
+        for(i = 0; i < 10; i++) {      // tens digit
+            for(j = 0; j < 10; j++) {  // ones digit
+                seg_port = seg_code[j];    // units display
+                seg_port2 = seg_code[i];   // tens display
+                DELAY(20);                 // visible delay
+            }
+        }
+    }
+}
