@@ -1,0 +1,72 @@
+square wave:
+#include<reg51.h>
+void delay(){
+	TMOD = 0x01;
+	TH0 = 0xFF;
+	TL0 = 0x06;
+	TR1 = 1;
+	while(TF0 == 0){
+		TR0 = 0;
+		TF0 = 0;
+	}
+}
+
+void main(){
+	while(1){
+		P2 = 0xFF;
+		delay();
+		P2 = 0x00;
+		delay();
+	}
+}
+
+
+triangular wave: 
+#include <reg51.h>
+
+void delay() {
+    unsigned int i, j;
+    for(i = 0; i < 200; i++)
+        for(j = 0; j < 200; j++);
+}
+
+void main() {
+    unsigned char i;
+    while(1) {
+        // Increasing ramp
+        for(i = 0; i <= 255; i++) {
+            P2 = i;
+            delay();
+        }
+
+        // Decreasing ramp
+        for(i = 255; i > 0; i--) {
+            P2 = i;
+            delay();
+        }
+    }
+}
+
+sawtooth wave:
+#include <reg51.h>
+
+void delay() {
+    unsigned int i, j;
+    for(i = 0; i < 200; i++)
+        for(j = 0; j < 200; j++);
+}
+
+void main() {
+    unsigned char i;
+    while(1) {
+        // Increasing ramp
+        for(i = 0; i <= 255; i++) {
+            P2 = i;
+            delay();
+        }
+
+        // Sudden drop to 0
+        P2 = 0x00;
+        delay();
+    }
+}
