@@ -1,0 +1,42 @@
+#include <p18f4520.h>
+
+#pragma config OSC = HS
+#pragma config PWRT = OFF
+#pragma config WDT = OFF
+#pragma config DEBUG = OFF, LVP = OFF 
+
+void timer_isr(void);
+
+#pragma code _HIGH_INTERRUPT_VECTOR = 0x08
+void high_ISR(void)
+{
+    _asm goto timer_isr _endasm    
+}
+#pragma code
+
+#pragma interrupt timer_isr
+void timer_isr(void)
+{
+    TMR0H = 0x3C;             
+    TMR0L = 0xB0;
+    PORTD = ~PORTD;           
+    INTCONbits.TMR0IF = 0;     
+}
+
+void main()
+{    
+    ADCON1 = 0x0F;             
+    TRISD = 0x00;              
+    PORTD = 0xFF;               
+
+    T0CON = 0x08;               
+    TMR0H = 0x3C;               
+    TMR0L = 0xB0;
+
+    INTCONbits.TMR0IF = 0;      
+    INTCONbits.TMR0IE = 1;     
+    T0CONbits.TMR0ON = 1;       
+    INTCONbits.GIE = 1;        
+
+    while(1);                   
+}
